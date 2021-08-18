@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ProfileForm from './ProfileForm';
 import classes from './UserProfile.module.css';
-import UserProfileDetails from '../Profile/UserProfileDetails';
+import UserProfileDetails2 from '../Profile/UserProfileDetails2';
 
 
 const UserProfile = () => {
@@ -17,7 +17,7 @@ const UserProfile = () => {
     <button onClick={handleCLick}>📐settings</button>
     <section className={classes.profile}>
       <h1>Your User Profile</h1>
-      <UserProfileDetails showBlur={showSettings}/>
+      <UserProfileDetails2 showBlur={showSettings}/>
      { 
      showSettings && <ProfileForm />
      }

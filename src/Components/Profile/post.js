@@ -8,6 +8,7 @@ function Post(props) {
    
     return (
         <>
+        {console.log(`postttt`)}
             <DIV className='post'>
                 <p>{props.postData.post}</p>
                 <img src={props.postData.image} className='post-image' alt="" />
