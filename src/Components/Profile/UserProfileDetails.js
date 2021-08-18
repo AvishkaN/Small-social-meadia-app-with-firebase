@@ -4,64 +4,51 @@ import AuthContext from '../../store/auth-context'
 import Post from './post';
 
 function UserProfileDetails(props) {
-    // Hooks
+    //***  Hooks
     const authCTX=useContext(AuthContext);
     const[showMediaWindow,SetshowMediaWindow]=useState(false);
     const [userNewPostDetails,setuserNewPostDetails]=useState({id:7,post:'initial post value',image:'url'});
 
-    const postTextInputref=useRef();
-    const postImageInputref=useRef();
-    //
+        // refs
+        const postTextInputref=useRef();
+        const postImageInputref=useRef();
+
+    //*** 
     
     //get userName
     let userName=authCTX.email;
     userName=userName.split('@')[0]; //spliting userName
     //
     
-    // useEffect(()=>{
-    //     console.log(`chaneddddd`);
-    //     console.log(userNewPostDetails);
-    //     authCTX.data.push(userNewPostDetails);
-    //     console.log(authCTX.data);
-    // },[UserProfileDetails.post]);
-    
-    // temp
-    
-
-    //
-    
     
     // functions
     const handlePostButton=()=>{
-        // console.log(`1@##`);
         const InputedPostValue=postTextInputref.current.value;
         
         setuserNewPostDetails(prevState=>{
+            
+            //set up context
+            authCTX.data.push( {
+                ...prevState,
+                id:authCTX.data[authCTX.data.length-1].id+1,
+                post:InputedPostValue,
+            });
+
+            //change state post inputed text 
             return  {
                 ...prevState,
                 id:authCTX.data[authCTX.data.length-1].id+1,
                 post:InputedPostValue,
             }
         });
-
-
     }
   
 
-    useEffect(()=>{
-      if(userNewPostDetails.id!==7)  authCTX.data.push(userNewPostDetails);
-        console.log(authCTX.data);
-    },[userNewPostDetails.post])
-    
-    //******** */ TEMPORAR
-    // console.log(userNewPostDetails);
-    // authCTX.data.push(userNewPostDetails);
-    // console.log(authCTX.data);
-    //******** */
     
     const handleImageButton=()=>{
-        // console.log(2);
         const inputedImageValue=postImageInputref.current?.value;
+        
+        //change state post inputed image
         setuserNewPostDetails(prevState=>{
             return  {
                 ...prevState,
@@ -70,21 +57,18 @@ function UserProfileDetails(props) {
         });
 
     }
-    // console.log(userNewPostDetails);
-    // authCTX.data.push(userNewPostDetails);
-    // console.log(authCTX.data);
+
     
+    // handling meadia icon on click
     const handleMeadiaClick=()=>{
         SetshowMediaWindow(prevState=>{
-            prevState && handleImageButton()
-            return !prevState
+            prevState && handleImageButton(); // update image input after cliccking ok button
+            return !prevState // show or hide media input
         })
     }
     
-       
 
-    //
-  
+    
      return (
         <>
         {console.log(`rendering....`)}
@@ -119,10 +103,8 @@ function UserProfileDetails(props) {
                     </div>
                     <div className='postList'>
                         {
-                            authCTX.data.map(post=><Post key={post.id} postData={{image:post.image,post:post.post}}/>)
-                            // (<h1>hello</h1>)
-                      }
-                       {/* <Post/> */}
+                        authCTX.data.map(post=><Post key={post.id} postData={{image:post.image,post:post.post}}/>)
+                        }
                     </div>
                 </DIV>
         </div>
@@ -138,12 +120,10 @@ const DIV=styled.div`
  
         position: absolute;
         width: 1398px;
-        /* height: 898px; */
         height: 1315px;
         left: 18px;
         top: 65px;
         border: 1px solid black;
-        /* transform: scale(0.4); */
         position: relative;
         top: -61px;
         transform: scale(0.8);
