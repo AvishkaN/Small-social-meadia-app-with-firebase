@@ -1,18 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
 import AuthContext from '../../store/auth-context'
 
 function UserProfileDetails(props) {
 
     const authCTX=useContext(AuthContext);
-    console.log(authCTX);
-
+    const[showMediaWindow,SetshowMediaWindow]=useState(false);
     let userName=authCTX.email;
     userName=userName.split('@')[0]; //spliting userName
-    console.log(userName);
-  console.log();
-  console.log();
-  console.log();
+    
+    console.log(authCTX);
+
+
+    // functions
+    const handleMeadiaClick=()=>{
+        SetshowMediaWindow(prevState=>!prevState)
+    }
   
      return (
         <>
@@ -33,7 +36,15 @@ function UserProfileDetails(props) {
                     </div>
                     <div className='createPost'>
                         <textarea name="" id="" cols="30" rows="10"></textarea>
-                        <button>Post</button>
+                        <button className='media-btn' onClick={handleMeadiaClick}>medias 📷 </button>
+                        <button>Post ➡</button>
+                        {showMediaWindow &&
+                        <div className='media'>
+                            <label className=''>image</label>
+                            <input type="text" />
+                            <button onClick={handleMeadiaClick}>ok</button>
+                        </div>
+                        }
                     </div>
                     <div className='postList'>
                         <div className='post'>
@@ -124,6 +135,24 @@ const DIV=styled.div`
 
         border: 1px solid #000000;
         box-sizing: border-box;
+
+        .media-btn{
+            position: relative;
+            left: -261px;
+            top: 21px;
+        }
+
+        .media{
+            height: 83px;
+            width: 500px;
+            position: relative;
+            top: -148px;
+            left: 271px;
+            background: gray;
+
+           
+        }
+        
     }
     .post{
         position: absolute;
