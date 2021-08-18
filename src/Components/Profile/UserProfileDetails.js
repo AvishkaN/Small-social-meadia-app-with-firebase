@@ -71,7 +71,7 @@ function UserProfileDetails(props) {
     
      return (
         <>
-        {console.log(`rendering....`)}
+        {console.log(`rendering...`)}
         {console.log(authCTX.data)}
         <div className="usedetails">
             <h1>details</h1>
