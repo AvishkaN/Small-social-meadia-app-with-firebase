@@ -1,5 +1,15 @@
 import React,{useState} from 'react';
 
+const data=[
+    {id:1,post:'lorem car van bus suv lorem car van bus suv lorem car van bus suv',image:'https://th.bing.com/th/id/R.c1ac59261da29eb390c2713c2ecc6018?rik=0EpOdMr%2blHG%2fAQ&pid=ImgRaw&r=0'},
+    {id:2,post:'lorem q h b dare lorem car van bus suv lorem car van bus suv lorem car van bus suv',image:'https://th.bing.com/th/id/R.c1ac59261da29eb390c2713c2ecc6018?rik=0EpOdMr%2blHG%2fAQ&pid=ImgRaw&r=0'},
+    {id:3,post:'lorem q h b dare lorem car van bus suv lorem car van bus suv lorem car van bus suv',image:'https://th.bing.com/th/id/R.c1ac59261da29eb390c2713c2ecc6018?rik=0EpOdMr%2blHG%2fAQ&pid=ImgRaw&r=0'},
+    {id:4,post:'lorem q h b dare lorem car van bus suv lorem car van bus suv lorem car van bus suv',image:'https://th.bing.com/th/id/R.c1ac59261da29eb390c2713c2ecc6018?rik=0EpOdMr%2blHG%2fAQ&pid=ImgRaw&r=0'},
+    {id:5,post:'hello  q h b dare lorem car van bus suv lorem car van bus suv lorem car van bus suv',image:'https://th.bing.com/th/id/R.c1ac59261da29eb390c2713c2ecc6018?rik=0EpOdMr%2blHG%2fAQ&pid=ImgRaw&r=0'},
+    
+]
+
+
 const authContext=React.createContext({
     token:'',
     email:'',
@@ -43,7 +53,7 @@ export const AuthContextProvider=(props)=>{
     const contextValue={
         token:tokenDetails.initialState,
         email:tokenDetails.email,
-        data:[],
+        data:data,
         isLoggedIn:userIsLoggedIn,
         login:loginHandler,
         logOut:logoutHandler,

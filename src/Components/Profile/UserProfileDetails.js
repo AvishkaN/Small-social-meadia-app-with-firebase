@@ -1,21 +1,68 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import styled from 'styled-components';
 import AuthContext from '../../store/auth-context'
+import Post from './post';
 
 function UserProfileDetails(props) {
 
+    // Hooks
     const authCTX=useContext(AuthContext);
     const[showMediaWindow,SetshowMediaWindow]=useState(false);
+    const [x,setX]=useState({post:'initial post value',image:'url'});
+
+    const postTextInputref=useRef();
+    const postImageInputref=useRef();
+    //
+
+
+    //get userName
     let userName=authCTX.email;
     userName=userName.split('@')[0]; //spliting userName
+    //
+
+
+    // temp
+    
+    //
     
     console.log(authCTX);
-
+    console.log(x);
 
     // functions
-    const handleMeadiaClick=()=>{
-        SetshowMediaWindow(prevState=>!prevState)
+    const handlePostButton=()=>{
+        console.log(1);
+
+        setX(prevState=>{
+            return  {
+                ...prevState,
+                post:postTextInputref.current.value,
+            }
+        });
+
+        
     }
+    const handleImageButton=()=>{
+        console.log(2);
+        console.log(postImageInputref.current?.value);
+        
+        setX(prevState=>{
+            return  {
+                ...prevState,
+                image:postImageInputref.current?.value,
+            }
+        });
+        
+       
+    }
+
+    const handleMeadiaClick=()=>{
+        SetshowMediaWindow(prevState=>{
+            console.log(prevState);
+            prevState && handleImageButton()
+            return !prevState
+        })
+    }
+    //
   
      return (
         <>
@@ -35,26 +82,24 @@ function UserProfileDetails(props) {
                         </ul>
                     </div>
                     <div className='createPost'>
-                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                        <textarea name="" id="" cols="30" rows="10" ref={postTextInputref}></textarea>
                         <button className='media-btn' onClick={handleMeadiaClick}>medias 📷 </button>
-                        <button>Post ➡</button>
-                        {showMediaWindow &&
+                        <button onClick={handlePostButton}>Post ➡</button>
+                        {
+                        showMediaWindow &&
                         <div className='media'>
                             <label className=''>image</label>
-                            <input type="text" />
+                            <input type="text" ref={postImageInputref}/>
                             <button onClick={handleMeadiaClick}>ok</button>
                         </div>
                         }
                     </div>
                     <div className='postList'>
-                        <div className='post'>
-                            <p>Lorem ipsum dolor sit - POST 1.</p>
-                            <div className="post-btn-list">
-                                <button className='post-btn like'>LiKE  ♥ ♥</button>
-                                <button className='post-btn comment'>comment 📨</button>
-                                <button className='post-btn share'>share 🪒</button>
-                            </div>
-                        </div>
+                        {
+                            authCTX.data.map(post=><Post key={post.id} postData={{image:post.image,post:post.post}}/>)
+                            // (<h1>hello</h1>)
+                      }
+                       {/* <Post/> */}
                     </div>
                 </DIV>
         </div>
@@ -70,7 +115,8 @@ const DIV=styled.div`
  
         position: absolute;
         width: 1398px;
-        height: 898px;
+        /* height: 898px; */
+        height: 1315px;
         left: 18px;
         top: 65px;
         border: 1px solid black;
@@ -152,34 +198,10 @@ const DIV=styled.div`
 
            
         }
+      
         
     }
-    .post{
-        position: absolute;
-        width: 755px;
-        height: 246px;
-        left: 623px;
-        top: 618px;
-
-        background: #C4C4C4;
-    }
-    .post-btn-list{
-        display: flex;
-        position: relative;
-        top: 121px;
-        left: 170px;
-    }
-    .post-btn {
-        
-        /* position: relative; */
-        width: 191px;
-        height: 57px;
-        left: 646px;
-        top: 783px;
-        box-sizing: border-box;
-        top: 5px;
-        left: 19px; 
-    }
+  
 `;
 
 export default UserProfileDetails;
